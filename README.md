@@ -1,7 +1,7 @@
 # Andean
-## Versatile chatbot based on LangChain and connected to Google Drive
+## Versatile Google Suite chatbot based on LangChain 
 
-Andean is a versatile chatbot connected to Google Drive and leveraging Open Source Large Language Models such as [Flant T5](https://huggingface.co/docs/transformers/model_doc/t5), [Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html) and other [Llama-based](https://github.com/facebookresearch/llama) LLM for various text processing tasks. Andean is built on [LangChain](https://python.langchain.com/) framework and aims to be deployed in serverless architecture such as Cloud Run and Tensorflow Serving. 
+Andean is a chatbot that leverages Open Source Large Language Models such as [Flant T5](https://huggingface.co/docs/transformers/model_doc/t5), [Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html) and other [Llama-based](https://github.com/facebookresearch/llama) LLM for various text processing tasks on Google Suite. Andean is built on [LangChain](https://python.langchain.com/) framework and aims to be deployed in serverless architecture such as Cloud Run and Tensorflow Serving. 
 
 To showcase the effectiveness of LangChain Framework, andean initial milestones are focussed on two exploratory initial use cases:
 
@@ -44,7 +44,23 @@ In a potential and yet-to-be-realized situation, Andean could be scaled up colla
 
 2) Select the chatbot from the top menu to interact with the available models.
 
-3) Enter a valid a Google Drive or Google Doc link in the prompt and andean will propose possible actions (summarize, answer technical questionaire...)
+3) Enter a valid a Google Drive or Google Doc link in the prompt and andean will propose possible actions (summarize, answer technical questionaire...).
+
+4) Andean long term memory (Redis). Any Google Drive file, document or folder can be memorized. Andean memory can be refreshed on demand item by item or for all. 
+
+## Future
+
+Most probable functional evolutions:
+
+1) Google Calendar: Suggest a list of links relevant for the next calendar event.
+
+2) LangChain Agents: Add the possibility to run agents (now andean only runs chains)
+
+3) Batch mode: Possibility to schedule chains and agents runs.
+
+4) Connect LangChain Hub: Select and run chains from https://github.com/hwchase17/langchain-hub
+
+5) Google Mail: Prepare draft answers based on the email received, past conversations from the same sender and relevant long term memories from Redis.
 
 ## Notes
 
