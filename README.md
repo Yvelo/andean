@@ -26,11 +26,11 @@ In a potential and yet-to-be-realized situation, Andean could be scaled up colla
 
    `git clone https://github.com/Yvelo/andean.git`
 
-2) Create a file api-keys.json in the root folder using [api-keys.template.json](api-keys.template.json) as a template. Store it in your built environment (e.g. Google Storage Buckets) to secure it.
+2) Create a file api-keys.json in the root folder using api-keys.template.json as a template. Store it in your built environment (e.g. Google Storage Buckets) to secure it.
 
-2) Create a file google-api-credentials.json in the root folder using [google-api-credentials.template.json](google-api-credentials.template.json) as a template. Store it in your built environment (e.g. Google Storage Buckets) to secure it.
+2) Create a file google-api-credentials.json in the root folder using google-api-credentials.template.json as a template. Store it in your built environment (e.g. Google Storage Buckets) to secure it.
 
-5) Customize [AI persona](/app/static/ai_persona.json) as per your preference.
+5) Customize ai_persona.json as per your preference.
 
 3) Update cloubuild.yaml according to the characteristics of your continous integration platform.
 
