@@ -1,0 +1,15 @@
+flask
+langchain
+openai
+faiss-cpu
+Flask-Markdown
+banana-dev
+redis
+python-dotenv
+azure-core
+google-api-python-client
+google-auth-httplib2
+google-auth-oauthlib
+PyPDF2
+tiktoken
+pinecone-client

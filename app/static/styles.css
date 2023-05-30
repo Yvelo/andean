@@ -76,6 +76,15 @@
     flex: 0;
 }
 
+.center-div {
+    width: 80%; /* set the width of the div */
+    height: 85%; /* set the height of the div */
+    position: absolute; /* set the position of the div */
+    top: 50%; /* center the div vertically */
+    left: 50%; /* center the div horizontally */
+    transform: translate(-50%, -45%); /* adjust the position */
+}
+
 .submit-button {
     color: #d9e9f9;
     font-weight: bold;
@@ -92,8 +101,8 @@
     font-weight: bold;
     background-color: #336edb;
     border-color: #336edb;
-    border-radius: 1em;
-    padding: 0.1em;
+    border-radius: 0.5em;
+    padding: 0.25em;
     text-align: center;
     width: 100%;
 }
@@ -139,6 +148,13 @@
     overflow-y: auto;
 }
 
+.markdown {
+    text-align: justify;
+    background-color: #ffffff;
+    padding: 1em;
+}
+
+
 body {
     color: #183269;
     text-align: justify;
@@ -146,20 +162,6 @@ body {
 
 h1, h2, h3, p, a, li {
     color: #183269;
-}
-.markdown {
-    text-align: justify;
-    background-color: #ffffff;
-    padding: 1em;
-}
-
-.center-div {
-    width: 80%; /* set the width of the div */
-    height: 85%; /* set the height of the div */
-    position: absolute; /* set the position of the div */
-    top: 50%; /* center the div vertically */
-    left: 50%; /* center the div horizontally */
-    transform: translate(-50%, -45%); /* adjust the position */
 }
 
 a:hover {
@@ -194,3 +196,23 @@ a:hover {
     text-align: justify;
     width: 100%;
 }
+
+div {
+    scrollbar-color: #888 #555;
+}
+
+div::-webkit-scrollbar {
+    width: 1.5em;
+}
+
+    div::-webkit-scrollbar-track {
+        background: #555;
+    }
+
+div::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    div::-webkit-scrollbar-thumb:hover {
+        background: #f1f1f1;
+    }

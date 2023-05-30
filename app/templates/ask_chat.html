@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="">
+    <form id="submit-question-form">
+        <div id="answer_div"></div>
+        <div class="question-container">
+            <div class="flex-div1">
+                <input type="text" class="prompt-div" name="question" id="question">
+            </div>
+            <div class="flex-div2">
+                <button type="submit" id="main-chat" class="submit-button">Submit</button>
+            </div>
+            <div id="loading-spinner" class="flex-div3" style="display:none;">
+                <img src="{{ url_for('static', filename='img/loading.gif') }}">
+            </div>
+        </div>
+    </form>
+    <div class="container" id="chat-status">
+        Your are chating with {{ type_of_template }}. 
+    </div>
+</div>
+<script>
+    var apiKey = getCookie('API-Key');
+    var forcedReload = 'lazy';
+
+    $("#submit-question-form").on('mousedown', function (e) {forcedReload = e.shiftKey ? 'eager' : 'lazy';});
+
+    $("#submit-question-form").submit(function (e) { 
+        e.preventDefault();
+        let questionDiv = $('<div class="human-question-div space-between container"></div>');
+        let sessionID = $("#session-id").val();
+        let submitButtonId = $(document.activeElement).attr("id");
+        let itemId = null;
+        let itemName = null;
+        let itemType = null;
+
+        if (submitButtonId == "main-chat" || submitButtonId == "question") {
+            question = $("#question").val();
+            $("#question").val('');
+            questionDiv.html(question);
+            $("#answer_div").append(questionDiv);
+            itemId = $("#item-id").val();
+            itemName = $("#item-name").val();
+            itemType = $("#item-type").val();
+        } else {
+            question = "" 
+            itemId = $(document.activeElement).attr("item-id");
+            itemName = $(document.activeElement).attr("item-name");
+            itemType = $(document.activeElement).attr("item-type");
+        }
+
+        $("#session-id").remove();
+        $("#item-id").remove();
+        $("#item-name").remove();
+        $("#item-type").remove();
+        $("#loading-spinner").show();
+        scrollToBottom();
+
+        $.ajax({
+            type: "POST",
+            url: "/submit_chat",
+            data: {
+                'question': question, 'API-Key': apiKey,
+                'type-of-template': '{{ type_of_template }}',
+                'session-id': sessionID,
+                'submit-button-id': submitButtonId,
+                'item-id': itemId,
+                'forced-reload': forcedReload
+            },
+            success: function (response) {
+                let answerDiv = $('<div class="ai-answer-div space-between container"></div>');
+                if (response.includes("Valid API-Key supplied!")) {
+                    setCookie('API-Key', question, 3650);
+                    location.reload(true);
+                    response = 'Your API-Key has been updated into : ' + question;
+                }
+                answerDiv.html(response);
+                $("#answer_div").append(answerDiv);
+            },
+            error: function () {
+                $("#loading-spinner").hide();
+                let answerDiv = $('<div class="ai-answer-div space-between container"></div>');
+                answerDiv.html("Error");
+                $("#answer_div").append(answerDiv);
+            },
+            complete: function () {
+                $("#loading-spinner").hide();
+                scrollToBottom();
+                itemName = $("#item-name").val();
+                itemId = $("#item-id").val();
+                itemType = $("#item-type").val();
+                chatStatus = "Your are chating with {{ type_of_template }}."
+                if (itemId && itemId !== "None") {
+                    if (itemType == "folder") {
+                        chatStatus += 'Folder in focus <a class="html-link" href="https://drive.google.com/drive/folders/' + itemId + '">' + itemName + '</a>.'
+                    } else if (itemType == "file") {
+                        chatStatus += 'File in focus <a class="html-link" href="https://drive.google.com/file/d/' + itemId + '">' + itemName + '</a>.'
+                    } else {
+                        chatStatus += 'Document in focus <a class="html-link" href="https://docs.google.com/' + itemType + '/d/' + itemId + '">' + itemName + '</a>.'
+                    }
+                }
+                $("#chat-status").html(chatStatus);
+            }
+        });
+    });
+
+    function scrollToBottom() {
+        var container = document.getElementById("container");
+        container.scrollTop = container.scrollHeight - container.clientHeight;
+    }
+
+    function setCookie(name, value, days) {
+        let expires = "";
+        if (days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    function getValueAfterPrefix(string, prefix = "Valid API-Key supplied: ") {
+        if (string.startsWith(prefix)) {
+            return string.substring(prefix.length);
+        } else {
+            return null;
+        }
+    }
+</script>
+{% endblock %}

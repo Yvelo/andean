@@ -1,0 +1,26 @@
+steps:
+    # Download the llama model from Google Cloud Storage Bucket
+    #- name: 'gcr.io/cloud-builders/gsutil'
+      #args: ['cp', 'gs://kerrai.appspot.com/Llama models/GPT4All-7B-ggml-4bit-lora-merged_2023-03-31/gpt4all-unfiltered-7b-ggml-q4_0-lora-merged/ggml-model-q4_0.bin', 'ggml-model-q4_0.bin']
+      #args: ['cp', 'gs://kerrai.appspot.com/Llama models/GPT4All-7B-ggml-4bit-lora-merged_2023-03-31/gpt4all-7b-ggml-q4_0-lora-merged/ggml-model-q4_0.bin', 'ggml-model-q4_0.bin']
+      #args: ['cp', 'gs://kerrai.appspot.com/Llama models/Alpaca-13B-ggml-4bit-LoRA-merged_2023-03-31/alpaca-13b-ggml-q4_0-lora-merged/ggml-model-q4_0.bin', 'ggml-model-q4_0.bin']
+      #args: ['cp', 'gs://kerrai.appspot.com/Llama models/Alpaca-7B-ggml-4bit-LoRA-merged_2023-03-31/alpaca-7b-ggml-q4_0-lora-merged/ggml-model-q4_0.bin', 'ggml-model-q4_0.bin']
+      #args: ['cp', 'gs://kerrai.appspot.com/Llama models/Vicuna-13B-ggml-4bit-delta-merged_2023-04-03/vicuna-13b-ggml-q4_0-delta-merged/ggml-model-q4_0.bin', 'ggml-model-q4_0.bin']
+    # Download the ai_persona.json from Google Cloud Storage Bucket
+    - name: 'gcr.io/cloud-builders/gsutil'
+      args: ['cp', 'gs://kerrai.appspot.com/ai_persona.json', 'app/static/ai_persona.json']
+    # Download the google-api-credentials.json from Google Cloud Storage Bucket
+    - name: 'gcr.io/cloud-builders/gsutil'
+      args: ['cp', 'gs://kerrai.appspot.com/google-api-credentials.json', 'google-api-credentials.json']
+    # Download the api-keys.json from Google Cloud Storage Bucket
+    - name: 'gcr.io/cloud-builders/gsutil'
+      args: ['cp', 'gs://kerrai.appspot.com/api-keys.json', 'api-keys.json']
+    # build the container image
+    - name: 'gcr.io/cloud-builders/docker'
+      args: [ 'build', '-t', 'gcr.io/kerrai/aafai:$SHORT_SHA', '.' ]
+    # push the container image to gcr
+    - name: 'gcr.io/cloud-builders/docker'
+      args: [ 'push', 'gcr.io/kerrai/aafai:$SHORT_SHA']
+    # Deploy container image to Cloud Run
+    - name: "gcr.io/cloud-builders/gcloud"
+      args: ['run', 'deploy', 'aafai', '--image', 'gcr.io/kerrai/aafai:$SHORT_SHA', '--region', 'europe-west1', '--platform', 'managed', '--allow-unauthenticated']

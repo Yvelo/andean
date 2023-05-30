@@ -1,0 +1,22 @@
+<div class="answer-container">
+    {% if response['img'] %}
+    <img src="data:image/jpeg;base64,{{  response['img'] }}" class="image-in-chat" alt="{{ response['answer'] }}" />
+    {% else %}
+    {{ response['answer']|safe}}
+    {% endif %}
+</div>
+    {% if response['actions'].items() %}
+    {% endif %}
+<div class="action-button-container">
+    {% for key, value in response['actions'].items() %}
+    <div>
+        <input type="submit" class="action-button" id="{{ key }}" item-type="{{ value['item_type'] }}" item-name="{{ value['item_name'] }}" item-id="{{ value['item_id'] }}" value="{{ value['action_name'] }}" />
+    </div>
+    {% endfor %}
+</div>
+<div>
+    <input type="hidden" id="session-id" value="{{ session_id }}" />
+    <input type="hidden" id="item-id" value="{{ item_id }}" />
+    <input type="hidden" id="item-name" value="{{ item_name }}" />
+    <input type="hidden" id="item-type" value="{{ item_type }}" />
+</div>

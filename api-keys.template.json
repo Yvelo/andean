@@ -1,0 +1,17 @@
+{
+  "ANDEAN_API_KEY": {
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "recall_group": "",
+    "pinecone_api_key": "",
+    "pinecone_env": "",
+    "pinecone_index": "",
+    "openai_api_key": "",
+    "stable_diffusion_model_key": "",
+    "flant_t5_model_key": "",
+    "alpaca_13b_model_key": "",
+    "github_account": "",
+    "github_key": ""
+  }
+}
