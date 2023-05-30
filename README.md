@@ -1,7 +1,7 @@
 # Andean
 ## Versatile Google Suite chatbot based on LangChain 
 
-Andean is a demonstration model for a chatbot that employs Open Source Large Language Models like [Flant T5](https://huggingface.co/docs/transformers/model_doc/t5), [Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html) and other [Llama-based](https://github.com/facebookresearch/llama) LLMs to perform a range of text processing tasks within the Google Suite. Constructed on the Python version of the [LangChain](https://github.com/hwchase17/langchain) framework ([Python version](https://python.langchain.com/)), Andean is designed for serverless deployment architectures like Cloud Run, with the intention to undergo stress testing. 
+Andean is a demonstration model for a chatbot that employs Open Source Large Language Models like [Flant T5](https://huggingface.co/docs/transformers/model_doc/t5), [Alpaca](https://crfm.stanford.edu/2023/03/13/alpaca.html) and other [Llama-based](https://github.com/facebookresearch/llama) LLMs to perform a range of text processing tasks within the Google Suite. Constructed on the [Python version](https://python.langchain.com/) of the [LangChain](https://github.com/hwchase17/langchain) framework, Andean is designed for serverless deployment architectures like Cloud Run, with the intention to undergo stress testing. 
 
 To showcase the effectiveness of LangChain, andean POC version is focussed on two exploratory use cases:
 
